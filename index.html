@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://unpkg.com/tabulator-tables@4.1.4/dist/css/tabulator.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>SensorHub Project</h1>
+      <p class="lead">
+        Aliquam venenatis, felis vel convallis eleifend, massa purus suscipit
+        erat, eu convallis libero nisi ac dui. Vestibulum eget quam ac urna
+        hendrerit facilisis quis eget enim. Maecenas feugiat sem quis purus
+        pulvinar molestie. Aenean eu porta metus. Suspendisse id egestas orci.
+        Quisque accumsan cursus turpis, eget molestie neque rutrum ut. Etiam
+        hendrerit ornare eleifend. Curabitur iaculis suscipit lacus, pretium
+        malesuada justo pellentesque quis. Proin id rhoncus ligula, id vulputate
+        nibh.
+      </p>
+
+      <form class="table-controls">
+        <div class="form-row">
+          <div class="col">
+            <label>Field: </label>
+            <select class="form-control" id="filter-field">
+              <option value="manufacturer name">Name</option>
+              <option value="Sensor type">Sensor type</option>
+              <option value="version">Version</option>
+            </select>
+          </div>
+
+          <div class="col-1">
+            <label>Type: </label>
+            <select class="form-control" id="filter-type">
+              <option value="like">like</option>
+              <option value="=">=</option>
+              <option value="<">&lt;</option>
+              <option value="<=">&lt;=</option>
+              <option value=">">&gt;</option>
+              <option value=">=">&gt;=</option>
+              <option value="!=">!=</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <label>Value: </label>
+            <input
+              class="form-control"
+              id="filter-value"
+              type="text"
+              placeholder="value to filter"
+            />
+          </div>
+          <div class="col">
+            <div style="padding-top: 32px;">
+              <button class="btn btn-primary" type="submit" id="filter">
+                Filter
+              </button>
+              <button class="btn btn-warning" id="filter-clear">
+                Clear filter
+              </button>
+              <button class="btn btn-link" id="download">
+                Download as CSV
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="example-table"></div>
+
+      <script
+        type="text/javascript"
+        src="https://unpkg.com/tabulator-tables@4.2.7/dist/js/tabulator.min.js"
+      ></script>
+      <script type="text/javascript" src="./index.js"></script>
+      <script type="text/javascript">
+        const table = new TableMaker("#example-table");
+        table.init();
+
+        document
+          .querySelector("#download")
+          .addEventListener("click", () => table.download());
+
+        document
+          .querySelector("#filter-clear")
+          .addEventListener("click", () => table.clearFilter());
+
+        document.querySelector("#filter").addEventListener("click", e => {
+          e.preventDefault();
+          table.filter();
+        });
+      </script>
+    </div>
+  </body>
+</html>
